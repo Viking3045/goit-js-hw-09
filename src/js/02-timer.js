@@ -16,6 +16,10 @@ const flatpickrInput = document.querySelector('#datetime-picker');
 
 startBtn.disabled = true;
 startBtn.addEventListener('click', onStartCounter);
+flatpickrInput.addEventListener('click', onSecondCounter);
+function onSecondCounter() {
+  counter.restart()
+}
 
 const options = {
   enableTime: true,
@@ -66,7 +70,7 @@ const counter = {
       const deltaTime = selectedDate - currentDate;
       updateTimerface(convertMs(deltaTime));
       startBtn.disabled = true;
-      flatpickrInput.disabled = true;
+      // flatpickrInput.disabled = true;
 
       if (deltaTime <= 1000) {
         this.stop();
@@ -81,6 +85,16 @@ const counter = {
     clearInterval(intervalId);
     return;
   },
+  restart() {
+    startBtn.disabled = true;
+    flatpickrInput.disabled = false;
+    clearInterval(intervalId);
+    dataDays.textContent = `00`;
+  dataHours.textContent = `00`;
+  dataMinutes.textContent = `00`;
+  dataSeconds.textContent = `00`;
+    return;
+  }
 };
 
 function updateTimerface({ days, hours, minutes, seconds }) {
@@ -93,3 +107,5 @@ function updateTimerface({ days, hours, minutes, seconds }) {
 function addLeadingZero(value) {
   return String(value).padStart(2, '0');
 }
+
+
