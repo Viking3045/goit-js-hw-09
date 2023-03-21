@@ -5,9 +5,10 @@ const refs = {
   delay: document.querySelector('[name="delay"]'),
   step: document.querySelector('[name="step"]'),
   amount: document.querySelector('[name="amount"]'),
+  button: document.querySelector('button'),
 }
 
-refs.form.addEventListener('click', onPromiseCreate);
+refs.button.addEventListener('click', onPromiseCreate);
 
 function createPromise(position, delay) {
   return new Promise((resolve, reject) => {
@@ -28,11 +29,12 @@ function onPromiseCreate(e) {
   let valueDelay = Number(refs.delay.value);
   let step = Number(refs.step.value);
   let amount = Number(refs.amount.value);
+  if (valueDelay !== 0 || step !==0 || amount !==0) {
+ for (let i = 0; i <= amount; i ++) {
+    position = i + 1;
+    const promiseDelay = valueDelay + step * i;
 
-  for (let i = 1; i <= amount; i += 1) {
-    let promiseDelay = valueDelay + step * i;
-
-    createPromise(i, promiseDelay)
+    createPromise(position, promiseDelay)
       .then(({ position, delay }) => {
         Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
       })
@@ -40,4 +42,9 @@ function onPromiseCreate(e) {
         Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
       });
   }
+  } else {
+    return
+   }
+
+  
 }
