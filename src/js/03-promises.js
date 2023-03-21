@@ -30,11 +30,11 @@ function onPromiseCreate(e) {
   let step = Number(refs.step.value);
   let amount = Number(refs.amount.value);
   if (valueDelay !== 0 || step !==0 || amount !==0) {
- for (let i = 0; i <= amount; i ++) {
+ for (let i = 0; i < amount; i ++) {
     
     const promiseDelay = valueDelay + step * i;
-
-    createPromise(i, promiseDelay)
+   const position = i + 1 ;
+    createPromise(position, promiseDelay)
       .then(({ position, delay }) => {
         Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
       })
